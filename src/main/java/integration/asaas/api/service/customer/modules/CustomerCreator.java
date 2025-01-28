@@ -1,6 +1,7 @@
-package integration.asaas.api.service.customer;
+package integration.asaas.api.service.customer.modules;
 
 import integration.asaas.api.model.customer.Customer;
+import integration.asaas.api.service.customer.IServiceModule;
 import integration.asaas.request.CustomerRequestManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,8 @@ public class CustomerCreator implements IServiceModule {
     }
 
     @Override
-    public ResponseEntity execute(Customer customer) {
-        return this.createCustomer(customer);
+    public <T> ResponseEntity<T> execute(T customer) {
+        return this.createCustomer((Customer) customer);
     }
 
     private ResponseEntity createCustomer(Customer customer) {
