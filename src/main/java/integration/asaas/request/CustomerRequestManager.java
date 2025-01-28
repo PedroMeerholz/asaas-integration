@@ -22,12 +22,19 @@ public class CustomerRequestManager extends RequestManager {
 
     public ResponseEntity createCustomer(Customer customer) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = this.buildRequest(customer);
+        HttpRequest request = this.buildPostRequest(customer);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return this.handleResponse(response);
     }
 
-    private HttpRequest buildRequest(Customer customer) throws JsonProcessingException {
+    public ResponseEntity deleteCustomer(String customerId) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = this.buildDeleteRequest(customerId);
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return this.handleResponse(response);
+    }
+
+    private HttpRequest buildPostRequest(Customer customer) throws JsonProcessingException {
         String url = this.baseUrl + this.path;
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(customer);
@@ -37,6 +44,17 @@ public class CustomerRequestManager extends RequestManager {
                 .header("User-Agent", "Sandbox Integration (Back-end)")
                 .header("access_token", this.apiKey)
                 .POST(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+    }
+
+    private HttpRequest buildDeleteRequest(String customerId) {
+        String url = this.baseUrl + this.path + String.format("/%s", customerId);
+        return HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Content-Type", "application/json")
+                .header("User-Agent", "Sandbox Integration (Back-end)")
+                .header("access_token", this.apiKey)
+                .DELETE()
                 .build();
     }
 }
