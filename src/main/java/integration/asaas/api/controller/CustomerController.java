@@ -5,6 +5,8 @@ import integration.asaas.api.service.customer.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerController {
@@ -22,5 +24,10 @@ public class CustomerController {
     @DeleteMapping("/delete/{customerId}")
     public ResponseEntity delete(@PathVariable("customerId") String customerId) {
         return this.service.delete(customerId);
+    }
+
+    @GetMapping(value = {"/find", "/find/{customerId}"})
+    public ResponseEntity find(@PathVariable(value = "customerId") Optional<String> customerId) {
+        return this.service.find(customerId);
     }
 }

@@ -1,60 +1,50 @@
 package integration.asaas.request;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import integration.asaas.api.model.customer.Customer;
+import integration.asaas.request.response.CustomerResponseHandler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Component
-public class CustomerRequestManager extends RequestManager {
-    private String path = "/api/v3/customers";
+public class CustomerRequestManager {
+    private final CustomerRequestBuilder requestBuilder;
+    private final CustomerResponseHandler responseHandler;
 
-    public CustomerRequestManager(RequestResponseHandler requestResponseHandler) {
-        super(requestResponseHandler);
+    public CustomerRequestManager(CustomerRequestBuilder requestBuilder, CustomerResponseHandler responseHandler) {
+        this.requestBuilder = requestBuilder;
+        this.responseHandler = responseHandler;
     }
 
     public ResponseEntity createCustomer(Customer customer) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = this.buildPostRequest(customer);
+        HttpRequest request = this.requestBuilder.buildPostRequest(customer);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        return this.handleResponse(response);
+        return this.responseHandler.handleResponse(response);
     }
 
     public ResponseEntity deleteCustomer(String customerId) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = this.buildDeleteRequest(customerId);
+        HttpRequest request = this.requestBuilder.buildDeleteRequest(customerId);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        return this.handleResponse(response);
+        return this.responseHandler.handleResponse(response);
     }
 
-    private HttpRequest buildPostRequest(Customer customer) throws JsonProcessingException {
-        String url = this.baseUrl + this.path;
-        ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(customer);
-        return HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("Content-Type", "application/json")
-                .header("User-Agent", "Sandbox Integration (Back-end)")
-                .header("access_token", this.apiKey)
-                .POST(HttpRequest.BodyPublishers.ofString(body))
-                .build();
+    public ResponseEntity listAllCustomers() throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = this.requestBuilder.buildGetRequest();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return this.responseHandler.handleListAllCustomersResponse(response);
     }
 
-    private HttpRequest buildDeleteRequest(String customerId) {
-        String url = this.baseUrl + this.path + String.format("/%s", customerId);
-        return HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("Content-Type", "application/json")
-                .header("User-Agent", "Sandbox Integration (Back-end)")
-                .header("access_token", this.apiKey)
-                .DELETE()
-                .build();
+    public ResponseEntity listOneCustomer(String customerId) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = this.requestBuilder.buildGetRequestWithPathVariable(customerId);
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return this.responseHandler.handleListOneCustomerResponse(response);
     }
 }

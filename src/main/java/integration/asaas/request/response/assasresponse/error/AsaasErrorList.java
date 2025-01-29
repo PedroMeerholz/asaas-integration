@@ -1,4 +1,4 @@
-package integration.asaas.request.assasresponse;
+package integration.asaas.request.response.assasresponse.error;
 
 import java.util.ArrayList;
 import java.util.List;
