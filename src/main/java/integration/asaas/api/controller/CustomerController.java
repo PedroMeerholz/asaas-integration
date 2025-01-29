@@ -30,4 +30,9 @@ public class CustomerController {
     public ResponseEntity find(@PathVariable(value = "customerId") Optional<String> customerId) {
         return this.service.find(customerId);
     }
+
+    @PutMapping(value = "/update/{customerId}")
+    public ResponseEntity update(@PathVariable("customerId") String customerId, @RequestBody Customer newCustomerData) {
+        return this.service.update(customerId, newCustomerData);
+    }
 }

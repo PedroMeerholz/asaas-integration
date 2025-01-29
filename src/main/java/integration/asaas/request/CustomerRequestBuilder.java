@@ -12,8 +12,9 @@ import java.net.http.HttpRequest;
 public class CustomerRequestBuilder {
     protected final String baseUrl = "https://sandbox.asaas.com";
     protected final String apiKey = "";
-    private String path = "/api/v3/customers";
+    private final String path = "/api/v3/customers";
 
+    // TODO: The method must receive the body as string as argument, not an entity. Use the PUT building method as reference
     public HttpRequest buildPostRequest(Customer customer) throws JsonProcessingException {
         String url = this.baseUrl + this.path;
         ObjectMapper objectMapper = new ObjectMapper();
@@ -57,6 +58,17 @@ public class CustomerRequestBuilder {
                 .header("User-Agent", "Sandbox Integration (Back-end)")
                 .header("access_token", this.apiKey)
                 .GET()
+                .build();
+    }
+
+    public HttpRequest buildPutRequestWithPathVariable(String variable, String body) {
+        String url = this.baseUrl + this.path + "/" + variable;
+        return HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Content-Type", "application/json")
+                .header("User-Agent", "Sandbox Integration (Back-end)")
+                .header("access_token", this.apiKey)
+                .PUT(HttpRequest.BodyPublishers.ofString(body))
                 .build();
     }
 }

@@ -47,4 +47,11 @@ public class CustomerRequestManager {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return this.responseHandler.handleListOneCustomerResponse(response);
     }
+
+    public ResponseEntity updateCustomer(String customerId, String body) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = this.requestBuilder.buildPutRequestWithPathVariable(customerId, body);
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return this.responseHandler.handleResponse(response);
+    }
 }
