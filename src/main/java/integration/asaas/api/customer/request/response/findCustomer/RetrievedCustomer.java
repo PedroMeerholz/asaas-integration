@@ -1,6 +1,6 @@
-package integration.asaas.request.response.findCustomer;
+package integration.asaas.api.customer.request.response.findCustomer;
 
-import integration.asaas.api.model.customer.Customer;
+import integration.asaas.api.customer.model.Customer;
 
 public class RetrievedCustomer extends Customer {
     private String object;

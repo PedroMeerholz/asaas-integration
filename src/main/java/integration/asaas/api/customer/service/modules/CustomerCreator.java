@@ -1,9 +1,9 @@
-package integration.asaas.api.service.customer.modules;
+package integration.asaas.api.customer.service.modules;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import integration.asaas.api.model.customer.Customer;
-import integration.asaas.api.service.customer.IServiceModule;
-import integration.asaas.request.CustomerRequestManager;
+import integration.asaas.api.customer.model.Customer;
+import integration.asaas.api.customer.service.IServiceModule;
+import integration.asaas.api.customer.request.response.CustomerRequestManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;

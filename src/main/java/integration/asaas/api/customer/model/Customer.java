@@ -1,4 +1,4 @@
-package integration.asaas.api.model.customer;
+package integration.asaas.api.customer.model;
 
 public class Customer implements ICustomer {
     private String name;

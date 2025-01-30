@@ -1,7 +1,6 @@
-package integration.asaas.request;
+package integration.asaas.api.customer.request.response;
 
-import integration.asaas.request.client.CustomerRequestClient;
-import integration.asaas.request.response.CustomerResponseHandler;
+import integration.asaas.api.customer.request.client.CustomerRequestClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 

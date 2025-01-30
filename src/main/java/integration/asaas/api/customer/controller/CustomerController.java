@@ -1,7 +1,7 @@
-package integration.asaas.api.controller;
+package integration.asaas.api.customer.controller;
 
-import integration.asaas.api.model.customer.Customer;
-import integration.asaas.api.service.customer.CustomerService;
+import integration.asaas.api.customer.model.Customer;
+import integration.asaas.api.customer.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

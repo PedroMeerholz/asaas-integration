@@ -1,4 +1,4 @@
-package integration.asaas.request.response.findCustomer;
+package integration.asaas.api.customer.request.response.findCustomer;
 
 
 import java.util.List;

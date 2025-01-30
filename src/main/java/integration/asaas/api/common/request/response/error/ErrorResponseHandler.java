@@ -1,8 +1,7 @@
-package integration.asaas.request.response;
+package integration.asaas.api.common.request.response.error;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import integration.asaas.request.response.error.AsaasErrorList;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;

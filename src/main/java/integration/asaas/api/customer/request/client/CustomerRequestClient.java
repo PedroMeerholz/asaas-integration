@@ -1,4 +1,4 @@
-package integration.asaas.request.client;
+package integration.asaas.api.customer.request.client;
 
 import org.springframework.stereotype.Component;
 
