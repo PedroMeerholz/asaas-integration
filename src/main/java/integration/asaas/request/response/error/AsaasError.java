@@ -1,4 +1,4 @@
-package integration.asaas.request.response.assasresponse.error;
+package integration.asaas.request.response.error;
 
 public class AsaasError {
     private String code;

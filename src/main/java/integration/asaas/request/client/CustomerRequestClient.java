@@ -1,23 +1,18 @@
-package integration.asaas.request;
+package integration.asaas.request.client;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import integration.asaas.api.model.customer.Customer;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
 
 @Component
-public class CustomerRequestBuilder {
+public class CustomerRequestClient {
     protected final String baseUrl = "https://sandbox.asaas.com";
     protected final String apiKey = "";
-    private String path = "/api/v3/customers";
+    private final String path = "/api/v3/customers";
 
-    public HttpRequest buildPostRequest(Customer customer) throws JsonProcessingException {
+    public HttpRequest buildPostRequest(String body) {
         String url = this.baseUrl + this.path;
-        ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(customer);
         return HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
@@ -27,8 +22,8 @@ public class CustomerRequestBuilder {
                 .build();
     }
 
-    public HttpRequest buildDeleteRequest(String customerId) {
-        String url = this.baseUrl + this.path + String.format("/%s", customerId);
+    public HttpRequest buildDeleteRequestWithPathVariable(String variable) {
+        String url = this.baseUrl + this.path + "/" + variable;
         return HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
@@ -57,6 +52,17 @@ public class CustomerRequestBuilder {
                 .header("User-Agent", "Sandbox Integration (Back-end)")
                 .header("access_token", this.apiKey)
                 .GET()
+                .build();
+    }
+
+    public HttpRequest buildPutRequestWithPathVariable(String variable, String body) {
+        String url = this.baseUrl + this.path + "/" + variable;
+        return HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Content-Type", "application/json")
+                .header("User-Agent", "Sandbox Integration (Back-end)")
+                .header("access_token", this.apiKey)
+                .PUT(HttpRequest.BodyPublishers.ofString(body))
                 .build();
     }
 }

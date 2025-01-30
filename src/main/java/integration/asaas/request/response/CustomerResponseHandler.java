@@ -2,8 +2,8 @@ package integration.asaas.request.response;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import integration.asaas.request.response.assasresponse.findCustomer.FindAllCustomersResponse;
-import integration.asaas.request.response.assasresponse.findCustomer.RetrievedCustomer;
+import integration.asaas.request.response.findCustomer.FindAllCustomersResponse;
+import integration.asaas.request.response.findCustomer.RetrievedCustomer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
