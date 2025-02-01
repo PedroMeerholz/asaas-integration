@@ -1,4 +1,4 @@
-package integration.asaas.api.customer.service;
+package integration.asaas.api.common.service;
 
 import org.springframework.http.ResponseEntity;
 

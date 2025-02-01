@@ -11,45 +11,45 @@ import java.net.http.HttpResponse;
 
 @Component
 public class CustomerRequestManager {
-    private final CustomerRequestClient requestBuilder;
+    private final CustomerRequestClient requestClient;
     private final CustomerResponseHandler responseHandler;
 
-    public CustomerRequestManager(CustomerRequestClient requestBuilder, CustomerResponseHandler responseHandler) {
-        this.requestBuilder = requestBuilder;
+    public CustomerRequestManager(CustomerRequestClient requestClient, CustomerResponseHandler responseHandler) {
+        this.requestClient = requestClient;
         this.responseHandler = responseHandler;
     }
 
     public ResponseEntity createCustomer(String body) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = this.requestBuilder.buildPostRequest(body);
+        HttpRequest request = this.requestClient.buildPostRequest(body);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return this.responseHandler.handleResponse(response);
     }
 
     public ResponseEntity deleteCustomer(String customerId) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = this.requestBuilder.buildDeleteRequestWithPathVariable(customerId);
+        HttpRequest request = this.requestClient.buildDeleteRequestWithPathVariable(customerId);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return this.responseHandler.handleResponse(response);
     }
 
     public ResponseEntity listAllCustomers() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = this.requestBuilder.buildGetRequest();
+        HttpRequest request = this.requestClient.buildGetRequest();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return this.responseHandler.handleListAllCustomersResponse(response);
     }
 
     public ResponseEntity listOneCustomer(String customerId) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = this.requestBuilder.buildGetRequestWithPathVariable(customerId);
+        HttpRequest request = this.requestClient.buildGetRequestWithPathVariable(customerId);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return this.responseHandler.handleListOneCustomerResponse(response);
     }
 
     public ResponseEntity updateCustomer(String customerId, String body) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = this.requestBuilder.buildPutRequestWithPathVariable(customerId, body);
+        HttpRequest request = this.requestClient.buildPutRequestWithPathVariable(customerId, body);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return this.responseHandler.handleResponse(response);
     }

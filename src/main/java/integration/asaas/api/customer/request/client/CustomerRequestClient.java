@@ -1,14 +1,13 @@
 package integration.asaas.api.customer.request.client;
 
+import integration.asaas.api.common.request.client.RequestClient;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
 
 @Component
-public class CustomerRequestClient {
-    protected final String baseUrl = "https://sandbox.asaas.com";
-    protected final String apiKey = "";
+public class CustomerRequestClient extends RequestClient {
     private final String path = "/api/v3/customers";
 
     public HttpRequest buildPostRequest(String body) {

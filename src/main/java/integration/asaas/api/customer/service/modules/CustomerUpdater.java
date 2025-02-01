@@ -2,7 +2,7 @@ package integration.asaas.api.customer.service.modules;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import integration.asaas.api.customer.model.Customer;
-import integration.asaas.api.customer.service.IManyParamsServiceModule;
+import integration.asaas.api.common.service.IManyParamsServiceModule;
 import integration.asaas.api.customer.request.response.CustomerRequestManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
