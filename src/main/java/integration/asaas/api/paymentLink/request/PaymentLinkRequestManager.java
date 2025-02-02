@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Map;
 
 @Component
 public class PaymentLinkRequestManager {
@@ -25,5 +26,12 @@ public class PaymentLinkRequestManager {
         HttpRequest request = this.requestClient.buildPostRequest(body);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return this.responseHandler.handleResponse(response);
+    }
+
+    public ResponseEntity list(Map<String, Object> params) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = this.requestClient.buildGetRequest(params);
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return this.responseHandler.handleListResponse(response);
     }
 }

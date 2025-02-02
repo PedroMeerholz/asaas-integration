@@ -2,11 +2,12 @@ package integration.asaas.api.paymentLink.controller;
 
 import integration.asaas.api.paymentLink.model.PaymentLink;
 import integration.asaas.api.paymentLink.service.PaymentLinkService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/paymentLink")
@@ -20,5 +21,18 @@ public class PaymentLinkController {
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody PaymentLink paymentLink) {
         return this.service.create(paymentLink);
+    }
+
+    @GetMapping(value = "/find")
+    public ResponseEntity find(@PathParam("active") boolean active,
+                               @PathParam("includeDeleted") boolean includeDeleted,
+                               @PathParam("name") String name) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("active", active);
+        params.put("includeDeleted", includeDeleted);
+        params.put("name", name);
+        params.put("offset", 0);
+        params.put("limit", 10);
+        return this.service.find(params);
     }
 }

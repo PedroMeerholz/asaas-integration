@@ -13,10 +13,10 @@ public class PaymentLink implements IPaymentLink {
     private String externalReference;
     private boolean notificationEnabled;
     private PaymentLinkCallback callback;
-    private final boolean isAddressRequired;
+    private final boolean addressRequired;
 
     public PaymentLink() {
-        this.isAddressRequired = true;
+        this.addressRequired = true;
     }
 
     @Override
@@ -139,6 +139,6 @@ public class PaymentLink implements IPaymentLink {
 
     @Override
     public boolean isAddressRequired() {
-        return isAddressRequired;
+        return addressRequired;
     }
 }

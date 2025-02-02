@@ -3,6 +3,7 @@ package integration.asaas.api.customer.request.response;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import integration.asaas.api.common.request.response.error.ErrorResponseHandler;
+import integration.asaas.api.common.request.response.handler.ResponseHandler;
 import integration.asaas.api.customer.request.response.findCustomer.FindAllCustomersResponse;
 import integration.asaas.api.customer.request.response.findCustomer.RetrievedCustomer;
 import org.springframework.http.HttpStatus;
@@ -12,11 +13,10 @@ import org.springframework.stereotype.Component;
 import java.net.http.HttpResponse;
 
 @Component
-public class CustomerResponseHandler {
-    private final ErrorResponseHandler errorResponseHandler;
+public class CustomerResponseHandler extends ResponseHandler {
 
     public CustomerResponseHandler(ErrorResponseHandler errorResponseHandler) {
-        this.errorResponseHandler = errorResponseHandler;
+        super(errorResponseHandler);
     }
 
     public ResponseEntity handleResponse(HttpResponse<String> response) throws JsonProcessingException {
