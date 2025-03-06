@@ -40,4 +40,10 @@ public class PaymentLinkRequestManager {
         HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         return this.responseHandler.handleResponse(response);
     }
+
+    public ResponseEntity delete(String paymentLinkId) throws IOException, InterruptedException {
+        HttpRequest request = this.requestClient.buildDeleteRequest(paymentLinkId);
+        HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        return this.responseHandler.handleResponse(response);
+    }
 }
