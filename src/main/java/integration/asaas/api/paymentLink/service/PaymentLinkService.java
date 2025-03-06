@@ -3,6 +3,7 @@ package integration.asaas.api.paymentLink.service;
 import integration.asaas.api.paymentLink.model.PaymentLink;
 import integration.asaas.api.paymentLink.service.modules.PaymentLinkCreator;
 import integration.asaas.api.paymentLink.service.modules.PaymentLinkFinder;
+import integration.asaas.api.paymentLink.service.modules.PaymentLinkRemover;
 import integration.asaas.api.paymentLink.service.modules.PaymentLinkUpdater;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,13 @@ public class PaymentLinkService {
     private final PaymentLinkCreator paymentLinkCreator;
     private final PaymentLinkFinder paymentLinkFinder;
     private final PaymentLinkUpdater paymentLinkUpdater;
+    private final PaymentLinkRemover paymentLinkRemover;
 
-    public PaymentLinkService(PaymentLinkCreator paymentLinkCreator, PaymentLinkFinder paymentLinkFinder, PaymentLinkUpdater paymentLinkUpdater) {
+    public PaymentLinkService(PaymentLinkCreator paymentLinkCreator, PaymentLinkFinder paymentLinkFinder, PaymentLinkUpdater paymentLinkUpdater, PaymentLinkRemover paymentLinkRemover) {
         this.paymentLinkCreator = paymentLinkCreator;
         this.paymentLinkFinder = paymentLinkFinder;
         this.paymentLinkUpdater = paymentLinkUpdater;
+        this.paymentLinkRemover = paymentLinkRemover;
     }
 
     public ResponseEntity create(PaymentLink paymentLink) {
@@ -31,5 +34,9 @@ public class PaymentLinkService {
 
     public ResponseEntity update(PaymentLink paymentLink, String paymentLinkId) {
         return this.paymentLinkUpdater.execute(paymentLink, paymentLinkId);
+    }
+
+    public ResponseEntity delete(String paymentLinkId) {
+        return this.paymentLinkRemover.execute(paymentLinkId);
     }
 }

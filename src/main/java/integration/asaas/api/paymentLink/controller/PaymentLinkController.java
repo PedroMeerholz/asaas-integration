@@ -40,4 +40,9 @@ public class PaymentLinkController {
     public ResponseEntity update(@RequestBody PaymentLink paymentLink, @PathVariable("paymentLinkId") String paymentLinkId) {
         return this.service.update(paymentLink, paymentLinkId);
     }
+
+    @DeleteMapping(value = "/delete/{paymentLinkId}")
+    public ResponseEntity delete(@PathVariable("paymentLinkId") String paymentLinkId) {
+        return this.service.delete(paymentLinkId);
+    }
 }

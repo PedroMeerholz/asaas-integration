@@ -45,6 +45,17 @@ public class PaymentLinkRequestClient extends RequestClient {
                 .build();
     }
 
+    public HttpRequest buildDeleteRequest(String pathVariable) {
+        String url = this.baseUrl + this.path + "/" + pathVariable;
+        return HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Content-Type", "application/json")
+                .header("User-Agent", "Sandbox Integration (Back-end)")
+                .header("access_token", this.apiKey)
+                .DELETE()
+                .build();
+    }
+
     private String buildRequestParams(Map<String, Object> params) {
         String requestParams = "?";
         boolean firstParam = true;
