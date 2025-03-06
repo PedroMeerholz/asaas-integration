@@ -34,6 +34,17 @@ public class PaymentLinkRequestClient extends RequestClient {
                 .build();
     }
 
+    public HttpRequest buildPutRequest(String body, String pathVariable) {
+        String url = this.baseUrl + this.path + "/" + pathVariable;
+        return HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Content-Type", "application/json")
+                .header("User-Agent", "Sandbox Integration (Back-end)")
+                .header("access_token", this.apiKey)
+                .PUT(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+    }
+
     private String buildRequestParams(Map<String, Object> params) {
         String requestParams = "?";
         boolean firstParam = true;

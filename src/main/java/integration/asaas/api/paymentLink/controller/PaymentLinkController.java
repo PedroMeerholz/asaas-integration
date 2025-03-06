@@ -35,4 +35,9 @@ public class PaymentLinkController {
         params.put("limit", 10);
         return this.service.find(params);
     }
+
+    @PutMapping(value = "/update/{paymentLinkId}")
+    public ResponseEntity update(@RequestBody PaymentLink paymentLink, @PathVariable("paymentLinkId") String paymentLinkId) {
+        return this.service.update(paymentLink, paymentLinkId);
+    }
 }
