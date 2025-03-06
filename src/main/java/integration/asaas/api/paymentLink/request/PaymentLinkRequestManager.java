@@ -15,23 +15,29 @@ import java.util.Map;
 public class PaymentLinkRequestManager {
     private final PaymentLinkRequestClient requestClient;
     private final PaymentLinkResponseHandler responseHandler;
+    private final HttpClient httpClient;
 
     public PaymentLinkRequestManager(PaymentLinkRequestClient requestClient, PaymentLinkResponseHandler responseHandler) {
         this.requestClient = requestClient;
         this.responseHandler = responseHandler;
+        this.httpClient = HttpClient.newHttpClient();
     }
 
     public ResponseEntity create(String body) throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = this.requestClient.buildPostRequest(body);
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         return this.responseHandler.handleResponse(response);
     }
 
     public ResponseEntity list(Map<String, Object> params) throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = this.requestClient.buildGetRequest(params);
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         return this.responseHandler.handleListResponse(response);
+    }
+
+    public ResponseEntity update(String body, String paymentLinkId) throws IOException, InterruptedException {
+        HttpRequest request = this.requestClient.buildPutRequest(body, paymentLinkId);
+        HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        return this.responseHandler.handleResponse(response);
     }
 }
