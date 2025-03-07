@@ -1,10 +1,7 @@
 package integration.asaas.api.paymentLink.service;
 
 import integration.asaas.api.paymentLink.model.PaymentLink;
-import integration.asaas.api.paymentLink.service.modules.PaymentLinkCreator;
-import integration.asaas.api.paymentLink.service.modules.PaymentLinkFinder;
-import integration.asaas.api.paymentLink.service.modules.PaymentLinkRemover;
-import integration.asaas.api.paymentLink.service.modules.PaymentLinkUpdater;
+import integration.asaas.api.paymentLink.service.modules.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +13,14 @@ public class PaymentLinkService {
     private final PaymentLinkFinder paymentLinkFinder;
     private final PaymentLinkUpdater paymentLinkUpdater;
     private final PaymentLinkRemover paymentLinkRemover;
+    private final PaymentLinkRetriever paymentLinkRetriever;
 
-    public PaymentLinkService(PaymentLinkCreator paymentLinkCreator, PaymentLinkFinder paymentLinkFinder, PaymentLinkUpdater paymentLinkUpdater, PaymentLinkRemover paymentLinkRemover) {
+    public PaymentLinkService(PaymentLinkCreator paymentLinkCreator, PaymentLinkFinder paymentLinkFinder, PaymentLinkUpdater paymentLinkUpdater, PaymentLinkRemover paymentLinkRemover, PaymentLinkRetriever paymentLinkRetriever) {
         this.paymentLinkCreator = paymentLinkCreator;
         this.paymentLinkFinder = paymentLinkFinder;
         this.paymentLinkUpdater = paymentLinkUpdater;
         this.paymentLinkRemover = paymentLinkRemover;
+        this.paymentLinkRetriever = paymentLinkRetriever;
     }
 
     public ResponseEntity create(PaymentLink paymentLink) {
@@ -38,5 +37,9 @@ public class PaymentLinkService {
 
     public ResponseEntity delete(String paymentLinkId) {
         return this.paymentLinkRemover.execute(paymentLinkId);
+    }
+
+    public ResponseEntity restore(String paymentLinkId) {
+        return this.paymentLinkRetriever.execute(paymentLinkId);
     }
 }

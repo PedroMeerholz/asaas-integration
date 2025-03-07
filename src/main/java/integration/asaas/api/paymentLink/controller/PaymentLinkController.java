@@ -45,4 +45,8 @@ public class PaymentLinkController {
     public ResponseEntity delete(@PathVariable("paymentLinkId") String paymentLinkId) {
         return this.service.delete(paymentLinkId);
     }
+    @PostMapping(value = "/recover/{paymentLinkId}")
+    public ResponseEntity recover(@PathVariable("paymentLinkId") String paymentLinkId) {
+        return this.service.restore(paymentLinkId);
+    }
 }

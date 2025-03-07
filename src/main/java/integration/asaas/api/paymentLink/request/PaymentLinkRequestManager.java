@@ -46,4 +46,10 @@ public class PaymentLinkRequestManager {
         HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         return this.responseHandler.handleResponse(response);
     }
+
+    public ResponseEntity restore(String paymentLinkId) throws IOException, InterruptedException {
+        HttpRequest request = this.requestClient.buildPostRequestWithPathVariable(paymentLinkId);
+        HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        return this.responseHandler.handleResponse(response);
+    }
 }
