@@ -24,6 +24,8 @@ public class PaymentLinkFinder implements IServiceModule {
     private ResponseEntity find(Map<String, Object> params) {
         try {
             return this.paymentLinkRequestManager.list(params);
+        } catch (IllegalArgumentException illegalArgumentException) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         } catch (Exception exception) {
             exception.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
